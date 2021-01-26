@@ -1,0 +1,8 @@
+.DS_Store
+.idea
+app/vendor
+app/composer.lock
+database
+logs
+app/testwork/.phalcon
+app/testwork/cache

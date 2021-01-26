@@ -1,0 +1,54 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: app
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - postgresql
+    container_name: app
+    working_dir: /var/www/
+    volumes:
+      - ./app:/var/www
+    networks:
+      - net
+  postgresql:
+    image: postgres:alpine
+    restart: on-failure
+    container_name: postgresql
+    environment:
+      POSTGRES_PASSWORD: 123456
+      TZ: "Europe/Moscow"
+      PGTZ: "Europe/Moscow"
+    ports:
+      - 5432:5432
+    volumes:
+      - ./database:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - net
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    depends_on:
+      - app
+    environment:
+      TZ: Europe/Moscow
+    ports:
+      - 8080:80
+    volumes:
+      - ./app:/var/www
+      - ./nginx:/etc/nginx/conf.d/
+      - ./logs:/var/log/nginx
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge
