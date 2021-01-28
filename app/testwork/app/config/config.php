@@ -11,10 +11,11 @@ return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Postgresql',
         'host'        => 'postgresql',
+        'port'        => '5432',
         'username'    => 'postgres',
         'password'    => '123456',
-        'dbname'      => 'docker',
-//        'charset'     => 'utf8',
+        'dbname'      => 'postgres',
+        'charset'     => 'utf8',
     ],
     'application' => [
         'appDir'         => APP_PATH . '/',

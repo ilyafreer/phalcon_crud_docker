@@ -1,4 +1,5 @@
 <?php
+namespace App\Models;
 
 class Users extends \Phalcon\Mvc\Model
 {
@@ -27,13 +28,18 @@ class Users extends \Phalcon\Mvc\Model
      */
     public $patronymic;
 
+    public function getSequenceName()
+    {
+        return 'users_did_seq';
+    }
+
     /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->setSchema("public");
-        $this->setSource("users");
+//        $this->setSource("users");
+        $this->setConnectionService('db');
     }
 
     /**

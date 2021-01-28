@@ -8,6 +8,8 @@ services:
       context: ./
       dockerfile: Dockerfile
     restart: unless-stopped
+    environment:
+      PHP_IDE_CONFIG: serverName=phalcon
     depends_on:
       - postgresql
     container_name: app
@@ -39,6 +41,7 @@ services:
     depends_on:
       - app
     environment:
+      PHP_IDE_CONFIG: serverName=phalcon
       TZ: Europe/Moscow
     ports:
       - 8080:80

@@ -14,6 +14,7 @@ use Phalcon\Url as UrlResolver;
 /**
  * Shared configuration service
  */
+/** @var $di */
 $di->setShared('config', function () {
     return include APP_PATH . "/config/config.php";
 });
@@ -29,6 +30,11 @@ $di->setShared('url', function () {
 
     return $url;
 });
+
+$di->setShared('router', function () {
+    return require __DIR__ . '/router.php';
+});
+
 
 /**
  * Setting up the view component

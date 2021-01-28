@@ -1,7 +1,28 @@
 <?php
+$router = new Phalcon\Mvc\Router(false);
 
-$router = $di->getRouter();
+$router->add('/:controller/:action/:params', [
+    'namespace'  => 'App\Controllers',
+    'controller' => 1,
+    'action'     => 2,
+    'params'     => 3,
+]);
 
-// Define your routes here
+$router->add('/:controller', [
+    'namespace'  => 'App\Controllers',
+    'controller' => 1
+]);
 
-$router->handle($_SERVER['REQUEST_URI']);
+$router->add('/admin/:controller/:action/:params', [
+    'namespace'  => 'App\Controllers\Admin',
+    'controller' => 1,
+    'action'     => 2,
+    'params'     => 3,
+]);
+
+$router->add('/admin/:controller', [
+    'namespace'  => 'App\Controllers\Admin',
+    'controller' => 1
+]);
+
+return $router;
